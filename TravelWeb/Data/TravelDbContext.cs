@@ -43,7 +43,43 @@ namespace TravelWeb.Data
                 .WithOne(u => u.User)
                 .HasForeignKey<Repository>(u => u.UserId)
                 .IsRequired();
-        }
+
+            // Cuisine and CategoryFood relationship one to one
+            modelBuilder.Entity<Cuisine>()
+                .HasOne(c => c.CategoryFood)
+                .WithOne(u => u.Cuisine)
+                .HasForeignKey<CategoryFood>(u => u.CuisineId)
+                .IsRequired();
+
+            // Cuisine and Histories relationship one to one
+            modelBuilder.Entity<Cuisine>()
+                .HasOne(h => h.History)
+                .WithOne(u => u.Cuisine)
+                .HasForeignKey<History>(u => u.CuisineId)
+                .IsRequired();
+
+            // Tourist and Histories relationship one to one
+            modelBuilder.Entity<TouristAttraction>()
+                .HasOne(h => h.History)
+                .WithOne(t => t.TouristAttraction)
+                .HasForeignKey<History>(t => t.TouristId)
+                .IsRequired();
+
+            // AirlineTicket and Bill relationship one to one
+            modelBuilder.Entity<AirlineTicket>()
+                .HasOne(b => b.Bill)
+                .WithOne(t => t.AirlineTicket)
+                .HasForeignKey<Bill>(t => t.TicketId)
+                .IsRequired();
+
+            // Brand and CategoriesTicket relationship one to one
+            modelBuilder.Entity<Brand>()
+                .HasOne(b => b.CategoryTicket)
+                .WithOne(t => t.Brand)
+                .HasForeignKey<CategoryTicket>(t => t.BrandId)
+                .IsRequired();
 
         }
+
+    }
 }

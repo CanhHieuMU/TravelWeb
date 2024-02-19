@@ -10,6 +10,6 @@ namespace TravelWeb.Models
         public string TouristName { get; set; }
         public string PriceTicketTourist { get; set; }
         public string CategoryTourist { get; set; }
-
+        public virtual History History { get; set; }
     }
 }
