@@ -4,6 +4,10 @@ namespace TravelWeb.Models
 {
     public class TouristAttraction
     {
+        public TouristAttraction() 
+        {
+            this.Repositories = new List<Repository>();
+        }
         [Key]
         public int TouristId { get; set; }
         [Required]
@@ -11,5 +15,6 @@ namespace TravelWeb.Models
         public string PriceTicketTourist { get; set; }
         public string CategoryTourist { get; set; }
         public virtual History History { get; set; }
+        public virtual ICollection<Repository> Repositories { get; set; }
     }
 }

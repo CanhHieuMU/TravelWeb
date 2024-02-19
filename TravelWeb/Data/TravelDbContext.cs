@@ -79,6 +79,9 @@ namespace TravelWeb.Data
                 .HasForeignKey<CategoryTicket>(t => t.BrandId)
                 .IsRequired();
 
+            // Repository and Homestay relationship many to many
+            base.OnModelCreating(modelBuilder);
+
         }
 
     }
