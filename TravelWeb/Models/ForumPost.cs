@@ -4,10 +4,6 @@ namespace TravelWeb.Models
 {
     public class ForumPost
     {
-        public ForumPost() 
-        {
-            this.Repositories = new HashSet<Repository>();
-        }
         [Key]
         public int PostId { get; set; }
         [Required]

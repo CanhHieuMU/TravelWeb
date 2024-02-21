@@ -22,6 +22,36 @@ namespace TravelWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CategoryFoodCuisine", b =>
+                {
+                    b.Property<int>("CategoryFoodsCateFoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuisinesCuisineId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryFoodsCateFoodId", "CuisinesCuisineId");
+
+                    b.HasIndex("CuisinesCuisineId");
+
+                    b.ToTable("CategoryFoodCuisine");
+                });
+
+            modelBuilder.Entity("CategoryTakeAwayCuisine", b =>
+                {
+                    b.Property<int>("CategoryTakeAwaysCategoryTakeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuisinesCuisineId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryTakeAwaysCategoryTakeId", "CuisinesCuisineId");
+
+                    b.HasIndex("CuisinesCuisineId");
+
+                    b.ToTable("CategoryTakeAwayCuisine");
+                });
+
             modelBuilder.Entity("CuisineRepository", b =>
                 {
                     b.Property<int>("CuisinesCuisineId")
@@ -192,17 +222,11 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CateFoodId"), 1L, 1);
 
-                    b.Property<int>("CuisineId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NameCateFood")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CateFoodId");
-
-                    b.HasIndex("CuisineId")
-                        .IsUnique();
 
                     b.ToTable("CategoryFoods");
                 });
@@ -219,12 +243,7 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CuisineId")
-                        .HasColumnType("int");
-
                     b.HasKey("CategoryTakeId");
-
-                    b.HasIndex("CuisineId");
 
                     b.ToTable("CategoryTakeAways");
                 });
@@ -583,6 +602,36 @@ namespace TravelWeb.Migrations
                     b.ToTable("Votes");
                 });
 
+            modelBuilder.Entity("CategoryFoodCuisine", b =>
+                {
+                    b.HasOne("TravelWeb.Models.CategoryFood", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryFoodsCateFoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelWeb.Models.Cuisine", null)
+                        .WithMany()
+                        .HasForeignKey("CuisinesCuisineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CategoryTakeAwayCuisine", b =>
+                {
+                    b.HasOne("TravelWeb.Models.CategoryTakeAway", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryTakeAwaysCategoryTakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelWeb.Models.Cuisine", null)
+                        .WithMany()
+                        .HasForeignKey("CuisinesCuisineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CuisineRepository", b =>
                 {
                     b.HasOne("TravelWeb.Models.Cuisine", null)
@@ -693,28 +742,6 @@ namespace TravelWeb.Migrations
                         .IsRequired();
 
                     b.Navigation("AirlineTicket");
-                });
-
-            modelBuilder.Entity("TravelWeb.Models.CategoryFood", b =>
-                {
-                    b.HasOne("TravelWeb.Models.Cuisine", "Cuisine")
-                        .WithOne("CategoryFood")
-                        .HasForeignKey("TravelWeb.Models.CategoryFood", "CuisineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cuisine");
-                });
-
-            modelBuilder.Entity("TravelWeb.Models.CategoryTakeAway", b =>
-                {
-                    b.HasOne("TravelWeb.Models.Cuisine", "Cuisine")
-                        .WithMany()
-                        .HasForeignKey("CuisineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cuisine");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.CategoryTicket", b =>
@@ -902,9 +929,6 @@ namespace TravelWeb.Migrations
 
             modelBuilder.Entity("TravelWeb.Models.Cuisine", b =>
                 {
-                    b.Navigation("CategoryFood")
-                        .IsRequired();
-
                     b.Navigation("History")
                         .IsRequired();
                 });

@@ -8,7 +8,6 @@ namespace TravelWeb.Models
         public int CateFoodId { get; set; }
         [Required]
         public string NameCateFood { get; set; }
-        public virtual Cuisine Cuisine { get; set; }
-        public int CuisineId { get; set; }
+        public virtual ICollection<Cuisine> Cuisines { get; set; }
     }
 }
