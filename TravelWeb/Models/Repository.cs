@@ -8,8 +8,7 @@ namespace TravelWeb.Models
         public int RepositoryId { get; set; }
         [Required]
         public string RepositoryName { get; set; }
-        public virtual User User { get; set; }
-        public int UserId { get; set; }
+        public ICollection<Bill> Bills { get; set; }
         public virtual ICollection<Homestay> Homestays { get; set; }
         public virtual ICollection<TouristAttraction> TouristAttractions { get; set; } 
         public virtual ICollection<Cuisine> Cuisines { get; set; }

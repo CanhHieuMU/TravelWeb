@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelWeb.Data;
 
@@ -11,9 +12,10 @@ using TravelWeb.Data;
 namespace TravelWeb.Migrations
 {
     [DbContext(typeof(TravelDbContext))]
-    partial class TravelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240222160518_AddDatabase")]
+    partial class AddDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +258,7 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CateTicketId"), 1L, 1);
 
-                    b.Property<int?>("BrandId")
+                    b.Property<int>("BrandId")
                         .HasColumnType("int");
 
                     b.Property<string>("CateTicketName")
@@ -269,7 +271,8 @@ namespace TravelWeb.Migrations
 
                     b.HasKey("CateTicketId");
 
-                    b.HasIndex("BrandId");
+                    b.HasIndex("BrandId")
+                        .IsUnique();
 
                     b.ToTable("CategoryTickets");
                 });
@@ -324,6 +327,7 @@ namespace TravelWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
@@ -731,9 +735,13 @@ namespace TravelWeb.Migrations
 
             modelBuilder.Entity("TravelWeb.Models.CategoryTicket", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Brand", null)
-                        .WithMany("CategoryTickets")
-                        .HasForeignKey("BrandId");
+                    b.HasOne("TravelWeb.Models.Brand", "Brand")
+                        .WithOne("CategoryTicket")
+                        .HasForeignKey("TravelWeb.Models.CategoryTicket", "BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Comment", b =>
@@ -843,7 +851,8 @@ namespace TravelWeb.Migrations
 
             modelBuilder.Entity("TravelWeb.Models.Brand", b =>
                 {
-                    b.Navigation("CategoryTickets");
+                    b.Navigation("CategoryTicket")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Comment", b =>

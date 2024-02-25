@@ -9,8 +9,5 @@ namespace TravelWeb.Models
         [Required]
         public string NamePhoto { get; set; }
         public string Path { get; set; }
-        public TouristAttraction TouristAttraction { get; set;}
-        public Cuisine Cuisine { get; set; }
-        public Homestay Homestay { get; set; }
     }
 }

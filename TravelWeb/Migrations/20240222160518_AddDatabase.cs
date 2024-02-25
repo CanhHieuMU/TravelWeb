@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelWeb.Migrations
 {
-    public partial class AddDatabase_19_2_2024 : Migration
+    public partial class AddDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,6 +33,21 @@ namespace TravelWeb.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CategoryTakeAways", x => x.CategoryTakeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cuisines",
+                columns: table => new
+                {
+                    CuisineId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CuisineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cuisines", x => x.CuisineId);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,112 +95,6 @@ namespace TravelWeb.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cuisines",
-                columns: table => new
-                {
-                    CuisineId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CuisineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TouristAttractionTouristId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cuisines", x => x.CuisineId);
-                    table.ForeignKey(
-                        name: "FK_Cuisines_TouristAttractions_TouristAttractionTouristId",
-                        column: x => x.TouristAttractionTouristId,
-                        principalTable: "TouristAttractions",
-                        principalColumn: "TouristId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Accounts",
-                columns: table => new
-                {
-                    AccountId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Accounts", x => x.AccountId);
-                    table.ForeignKey(
-                        name: "FK_Accounts_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AirlineTickets",
-                columns: table => new
-                {
-                    TicketId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AirlineTickets", x => x.TicketId);
-                    table.ForeignKey(
-                        name: "FK_AirlineTickets_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ForumPosts",
-                columns: table => new
-                {
-                    PostId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ForumPosts", x => x.PostId);
-                    table.ForeignKey(
-                        name: "FK_ForumPosts_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Repositories",
-                columns: table => new
-                {
-                    RepositoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RepositoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Repositories", x => x.RepositoryId);
-                    table.ForeignKey(
-                        name: "FK_Repositories_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,40 +146,6 @@ namespace TravelWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    CommentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CuisineId = table.Column<int>(type: "int", nullable: false),
-                    TouristActtractionTouristId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.CommentId);
-                    table.ForeignKey(
-                        name: "FK_Comments_Cuisines_CuisineId",
-                        column: x => x.CuisineId,
-                        principalTable: "Cuisines",
-                        principalColumn: "CuisineId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_TouristAttractions_TouristActtractionTouristId",
-                        column: x => x.TouristActtractionTouristId,
-                        principalTable: "TouristAttractions",
-                        principalColumn: "TouristId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comments_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Histories",
                 columns: table => new
                 {
@@ -305,9 +180,9 @@ namespace TravelWeb.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NamePhoto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TouristAttractionTouristId = table.Column<int>(type: "int", nullable: false),
-                    CuisineId = table.Column<int>(type: "int", nullable: false),
-                    HomestayId = table.Column<int>(type: "int", nullable: false)
+                    CuisineId = table.Column<int>(type: "int", nullable: true),
+                    HomestayId = table.Column<int>(type: "int", nullable: true),
+                    TouristAttractionTouristId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -316,20 +191,17 @@ namespace TravelWeb.Migrations
                         name: "FK_Photos_Cuisines_CuisineId",
                         column: x => x.CuisineId,
                         principalTable: "Cuisines",
-                        principalColumn: "CuisineId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CuisineId");
                     table.ForeignKey(
                         name: "FK_Photos_Homestays_HomestayId",
                         column: x => x.HomestayId,
                         principalTable: "Homestays",
-                        principalColumn: "HomestayId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "HomestayId");
                     table.ForeignKey(
                         name: "FK_Photos_TouristAttractions_TouristAttractionTouristId",
                         column: x => x.TouristAttractionTouristId,
                         principalTable: "TouristAttractions",
-                        principalColumn: "TouristId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TouristId");
                 });
 
             migrationBuilder.CreateTable(
@@ -340,9 +212,9 @@ namespace TravelWeb.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RateStar = table.Column<int>(type: "int", nullable: false),
                     IsRateed = table.Column<bool>(type: "bit", nullable: false),
-                    TouristAttractionTouristId = table.Column<int>(type: "int", nullable: false),
-                    HomestayId = table.Column<int>(type: "int", nullable: false),
-                    CuisineId = table.Column<int>(type: "int", nullable: false)
+                    CuisineId = table.Column<int>(type: "int", nullable: true),
+                    HomestayId = table.Column<int>(type: "int", nullable: true),
+                    TouristAttractionTouristId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -351,20 +223,98 @@ namespace TravelWeb.Migrations
                         name: "FK_Rates_Cuisines_CuisineId",
                         column: x => x.CuisineId,
                         principalTable: "Cuisines",
-                        principalColumn: "CuisineId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CuisineId");
                     table.ForeignKey(
                         name: "FK_Rates_Homestays_HomestayId",
                         column: x => x.HomestayId,
                         principalTable: "Homestays",
-                        principalColumn: "HomestayId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "HomestayId");
                     table.ForeignKey(
                         name: "FK_Rates_TouristAttractions_TouristAttractionTouristId",
                         column: x => x.TouristAttractionTouristId,
                         principalTable: "TouristAttractions",
-                        principalColumn: "TouristId",
+                        principalColumn: "TouristId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Accounts",
+                columns: table => new
+                {
+                    AccountId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Accounts", x => x.AccountId);
+                    table.ForeignKey(
+                        name: "FK_Accounts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AirlineTickets",
+                columns: table => new
+                {
+                    TicketId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TicketName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AirlineTickets", x => x.TicketId);
+                    table.ForeignKey(
+                        name: "FK_AirlineTickets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForumPosts",
+                columns: table => new
+                {
+                    ForumPostId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForumPosts", x => x.ForumPostId);
+                    table.ForeignKey(
+                        name: "FK_ForumPosts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Repositories",
+                columns: table => new
+                {
+                    RepositoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RepositoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Repositories", x => x.RepositoryId);
+                    table.ForeignKey(
+                        name: "FK_Repositories_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -374,7 +324,7 @@ namespace TravelWeb.Migrations
                     BrandId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AirlineTicketTicketId = table.Column<int>(type: "int", nullable: false)
+                    AirlineTicketTicketId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -383,8 +333,44 @@ namespace TravelWeb.Migrations
                         name: "FK_Brands_AirlineTickets_AirlineTicketTicketId",
                         column: x => x.AirlineTicketTicketId,
                         principalTable: "AirlineTickets",
-                        principalColumn: "TicketId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TicketId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    CommentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CuisineId = table.Column<int>(type: "int", nullable: true),
+                    ForumPostId = table.Column<int>(type: "int", nullable: true),
+                    TouristAttractionTouristId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
+                    table.ForeignKey(
+                        name: "FK_Comments_Cuisines_CuisineId",
+                        column: x => x.CuisineId,
+                        principalTable: "Cuisines",
+                        principalColumn: "CuisineId");
+                    table.ForeignKey(
+                        name: "FK_Comments_ForumPosts_ForumPostId",
+                        column: x => x.ForumPostId,
+                        principalTable: "ForumPosts",
+                        principalColumn: "ForumPostId");
+                    table.ForeignKey(
+                        name: "FK_Comments_TouristAttractions_TouristAttractionTouristId",
+                        column: x => x.TouristAttractionTouristId,
+                        principalTable: "TouristAttractions",
+                        principalColumn: "TouristId");
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -395,7 +381,7 @@ namespace TravelWeb.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BillName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TicketId = table.Column<int>(type: "int", nullable: false),
-                    RepositoryId = table.Column<int>(type: "int", nullable: false)
+                    RepositoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -410,8 +396,7 @@ namespace TravelWeb.Migrations
                         name: "FK_Bills_Repositories_RepositoryId",
                         column: x => x.RepositoryId,
                         principalTable: "Repositories",
-                        principalColumn: "RepositoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "RepositoryId");
                 });
 
             migrationBuilder.CreateTable(
@@ -442,17 +427,17 @@ namespace TravelWeb.Migrations
                 name: "ForumPostRepository",
                 columns: table => new
                 {
-                    ForumPostsPostId = table.Column<int>(type: "int", nullable: false),
+                    ForumPostsForumPostId = table.Column<int>(type: "int", nullable: false),
                     RepositoriesRepositoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ForumPostRepository", x => new { x.ForumPostsPostId, x.RepositoriesRepositoryId });
+                    table.PrimaryKey("PK_ForumPostRepository", x => new { x.ForumPostsForumPostId, x.RepositoriesRepositoryId });
                     table.ForeignKey(
-                        name: "FK_ForumPostRepository_ForumPosts_ForumPostsPostId",
-                        column: x => x.ForumPostsPostId,
+                        name: "FK_ForumPostRepository_ForumPosts_ForumPostsForumPostId",
+                        column: x => x.ForumPostsForumPostId,
                         principalTable: "ForumPosts",
-                        principalColumn: "PostId",
+                        principalColumn: "ForumPostId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ForumPostRepository_Repositories_RepositoriesRepositoryId",
@@ -511,40 +496,6 @@ namespace TravelWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Votes",
-                columns: table => new
-                {
-                    VoteId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IsGood = table.Column<bool>(type: "bit", nullable: false),
-                    ForumPostPostId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    CommentId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Votes", x => x.VoteId);
-                    table.ForeignKey(
-                        name: "FK_Votes_Comments_CommentId",
-                        column: x => x.CommentId,
-                        principalTable: "Comments",
-                        principalColumn: "CommentId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Votes_ForumPosts_ForumPostPostId",
-                        column: x => x.ForumPostPostId,
-                        principalTable: "ForumPosts",
-                        principalColumn: "PostId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Votes_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CategoryTickets",
                 columns: table => new
                 {
@@ -563,6 +514,37 @@ namespace TravelWeb.Migrations
                         principalTable: "Brands",
                         principalColumn: "BrandId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Votes",
+                columns: table => new
+                {
+                    VoteId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsGood = table.Column<bool>(type: "bit", nullable: false),
+                    CommentId = table.Column<int>(type: "int", nullable: true),
+                    ForumPostId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Votes", x => x.VoteId);
+                    table.ForeignKey(
+                        name: "FK_Votes_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "CommentId");
+                    table.ForeignKey(
+                        name: "FK_Votes_ForumPosts_ForumPostId",
+                        column: x => x.ForumPostId,
+                        principalTable: "ForumPosts",
+                        principalColumn: "ForumPostId");
+                    table.ForeignKey(
+                        name: "FK_Votes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -614,9 +596,14 @@ namespace TravelWeb.Migrations
                 column: "CuisineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_TouristActtractionTouristId",
+                name: "IX_Comments_ForumPostId",
                 table: "Comments",
-                column: "TouristActtractionTouristId");
+                column: "ForumPostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_TouristAttractionTouristId",
+                table: "Comments",
+                column: "TouristAttractionTouristId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
@@ -627,11 +614,6 @@ namespace TravelWeb.Migrations
                 name: "IX_CuisineRepository_RepositoriesRepositoryId",
                 table: "CuisineRepository",
                 column: "RepositoriesRepositoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cuisines_TouristAttractionTouristId",
-                table: "Cuisines",
-                column: "TouristAttractionTouristId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ForumPostRepository_RepositoriesRepositoryId",
@@ -693,8 +675,7 @@ namespace TravelWeb.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Repositories_UserId",
                 table: "Repositories",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RepositoryTouristAttraction_TouristAttractionsTouristId",
@@ -707,9 +688,9 @@ namespace TravelWeb.Migrations
                 column: "CommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Votes_ForumPostPostId",
+                name: "IX_Votes_ForumPostId",
                 table: "Votes",
-                column: "ForumPostPostId");
+                column: "ForumPostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Votes_UserId",
@@ -777,19 +758,19 @@ namespace TravelWeb.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "ForumPosts");
-
-            migrationBuilder.DropTable(
                 name: "AirlineTickets");
 
             migrationBuilder.DropTable(
                 name: "Cuisines");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "ForumPosts");
 
             migrationBuilder.DropTable(
                 name: "TouristAttractions");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

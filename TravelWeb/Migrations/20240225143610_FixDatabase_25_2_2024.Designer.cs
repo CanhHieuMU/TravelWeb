@@ -12,8 +12,8 @@ using TravelWeb.Data;
 namespace TravelWeb.Migrations
 {
     [DbContext(typeof(TravelDbContext))]
-    [Migration("20240221110220_AddDatabase_19_2_2024")]
-    partial class AddDatabase_19_2_2024
+    [Migration("20240225143610_FixDatabase_25_2_2024")]
+    partial class FixDatabase_25_2_2024
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,13 +71,13 @@ namespace TravelWeb.Migrations
 
             modelBuilder.Entity("ForumPostRepository", b =>
                 {
-                    b.Property<int>("ForumPostsPostId")
+                    b.Property<int>("ForumPostsForumPostId")
                         .HasColumnType("int");
 
                     b.Property<int>("RepositoriesRepositoryId")
                         .HasColumnType("int");
 
-                    b.HasKey("ForumPostsPostId", "RepositoriesRepositoryId");
+                    b.HasKey("ForumPostsForumPostId", "RepositoriesRepositoryId");
 
                     b.HasIndex("RepositoriesRepositoryId");
 
@@ -156,7 +156,7 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("TicketId");
@@ -178,7 +178,7 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RepositoryId")
+                    b.Property<int?>("RepositoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("TicketId")
@@ -202,7 +202,7 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BrandId"), 1L, 1);
 
-                    b.Property<int>("AirlineTicketTicketId")
+                    b.Property<int?>("AirlineTicketTicketId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -258,7 +258,7 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CateTicketId"), 1L, 1);
 
-                    b.Property<int>("BrandId")
+                    b.Property<int?>("BrandId")
                         .HasColumnType("int");
 
                     b.Property<string>("CateTicketName")
@@ -271,8 +271,7 @@ namespace TravelWeb.Migrations
 
                     b.HasKey("CateTicketId");
 
-                    b.HasIndex("BrandId")
-                        .IsUnique();
+                    b.HasIndex("BrandId");
 
                     b.ToTable("CategoryTickets");
                 });
@@ -289,20 +288,25 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CuisineId")
+                    b.Property<int?>("CuisineId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TouristActtractionTouristId")
+                    b.Property<int?>("ForumPostId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("TouristAttractionTouristId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("CommentId");
 
                     b.HasIndex("CuisineId");
 
-                    b.HasIndex("TouristActtractionTouristId");
+                    b.HasIndex("ForumPostId");
+
+                    b.HasIndex("TouristAttractionTouristId");
 
                     b.HasIndex("UserId");
 
@@ -322,30 +326,24 @@ namespace TravelWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TouristAttractionTouristId")
-                        .HasColumnType("int");
-
                     b.HasKey("CuisineId");
-
-                    b.HasIndex("TouristAttractionTouristId");
 
                     b.ToTable("Cuisines");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.ForumPost", b =>
                 {
-                    b.Property<int>("PostId")
+                    b.Property<int>("ForumPostId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ForumPostId"), 1L, 1);
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -358,10 +356,10 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("PostId");
+                    b.HasKey("ForumPostId");
 
                     b.HasIndex("UserId");
 
@@ -434,10 +432,10 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PhotoId"), 1L, 1);
 
-                    b.Property<int>("CuisineId")
+                    b.Property<int?>("CuisineId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HomestayId")
+                    b.Property<int?>("HomestayId")
                         .HasColumnType("int");
 
                     b.Property<string>("NamePhoto")
@@ -448,7 +446,7 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TouristAttractionTouristId")
+                    b.Property<int?>("TouristAttractionTouristId")
                         .HasColumnType("int");
 
                     b.HasKey("PhotoId");
@@ -470,10 +468,10 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RateId"), 1L, 1);
 
-                    b.Property<int>("CuisineId")
+                    b.Property<int?>("CuisineId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HomestayId")
+                    b.Property<int?>("HomestayId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsRateed")
@@ -482,7 +480,7 @@ namespace TravelWeb.Migrations
                     b.Property<int>("RateStar")
                         .HasColumnType("int");
 
-                    b.Property<int>("TouristAttractionTouristId")
+                    b.Property<int?>("TouristAttractionTouristId")
                         .HasColumnType("int");
 
                     b.HasKey("RateId");
@@ -508,13 +506,12 @@ namespace TravelWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("RepositoryId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Repositories");
                 });
@@ -581,23 +578,23 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VoteId"), 1L, 1);
 
-                    b.Property<int>("CommentId")
+                    b.Property<int?>("CommentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ForumPostPostId")
+                    b.Property<int?>("ForumPostId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsGood")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("VoteId");
 
                     b.HasIndex("CommentId");
 
-                    b.HasIndex("ForumPostPostId");
+                    b.HasIndex("ForumPostId");
 
                     b.HasIndex("UserId");
 
@@ -653,7 +650,7 @@ namespace TravelWeb.Migrations
                 {
                     b.HasOne("TravelWeb.Models.ForumPost", null)
                         .WithMany()
-                        .HasForeignKey("ForumPostsPostId")
+                        .HasForeignKey("ForumPostsForumPostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -707,22 +704,16 @@ namespace TravelWeb.Migrations
 
             modelBuilder.Entity("TravelWeb.Models.AirlineTicket", b =>
                 {
-                    b.HasOne("TravelWeb.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.HasOne("TravelWeb.Models.User", null)
+                        .WithMany("AirlineTickets")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Bill", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Repository", "Repository")
-                        .WithMany()
-                        .HasForeignKey("RepositoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Repository", null)
+                        .WithMany("Bills")
+                        .HasForeignKey("RepositoryId");
 
                     b.HasOne("TravelWeb.Models.AirlineTicket", "AirlineTicket")
                         .WithOne("Bill")
@@ -731,79 +722,46 @@ namespace TravelWeb.Migrations
                         .IsRequired();
 
                     b.Navigation("AirlineTicket");
-
-                    b.Navigation("Repository");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Brand", b =>
                 {
-                    b.HasOne("TravelWeb.Models.AirlineTicket", "AirlineTicket")
-                        .WithMany()
-                        .HasForeignKey("AirlineTicketTicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AirlineTicket");
+                    b.HasOne("TravelWeb.Models.AirlineTicket", null)
+                        .WithMany("Brands")
+                        .HasForeignKey("AirlineTicketTicketId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.CategoryTicket", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Brand", "Brand")
-                        .WithOne("CategoryTicket")
-                        .HasForeignKey("TravelWeb.Models.CategoryTicket", "BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
+                    b.HasOne("TravelWeb.Models.Brand", null)
+                        .WithMany("CategoryTickets")
+                        .HasForeignKey("BrandId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Comment", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Cuisine", "Cuisine")
-                        .WithMany()
-                        .HasForeignKey("CuisineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Cuisine", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("CuisineId");
 
-                    b.HasOne("TravelWeb.Models.TouristAttraction", "TouristActtraction")
-                        .WithMany()
-                        .HasForeignKey("TouristActtractionTouristId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.ForumPost", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ForumPostId");
 
-                    b.HasOne("TravelWeb.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.TouristAttraction", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("TouristAttractionTouristId");
 
-                    b.Navigation("Cuisine");
-
-                    b.Navigation("TouristActtraction");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TravelWeb.Models.Cuisine", b =>
-                {
-                    b.HasOne("TravelWeb.Models.TouristAttraction", "TouristAttraction")
-                        .WithMany()
-                        .HasForeignKey("TouristAttractionTouristId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TouristAttraction");
+                    b.HasOne("TravelWeb.Models.User", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.ForumPost", b =>
                 {
-                    b.HasOne("TravelWeb.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.HasOne("TravelWeb.Models.User", null)
+                        .WithMany("ForumPosts")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.History", b =>
@@ -827,118 +785,115 @@ namespace TravelWeb.Migrations
 
             modelBuilder.Entity("TravelWeb.Models.Photo", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Cuisine", "Cuisine")
-                        .WithMany()
-                        .HasForeignKey("CuisineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Cuisine", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("CuisineId");
 
-                    b.HasOne("TravelWeb.Models.Homestay", "Homestay")
-                        .WithMany()
-                        .HasForeignKey("HomestayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Homestay", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("HomestayId");
 
-                    b.HasOne("TravelWeb.Models.TouristAttraction", "TouristAttraction")
-                        .WithMany()
-                        .HasForeignKey("TouristAttractionTouristId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cuisine");
-
-                    b.Navigation("Homestay");
-
-                    b.Navigation("TouristAttraction");
+                    b.HasOne("TravelWeb.Models.TouristAttraction", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("TouristAttractionTouristId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Rate", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Cuisine", "Cuisine")
-                        .WithMany()
-                        .HasForeignKey("CuisineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Cuisine", null)
+                        .WithMany("Rates")
+                        .HasForeignKey("CuisineId");
 
-                    b.HasOne("TravelWeb.Models.Homestay", "Homestay")
-                        .WithMany()
-                        .HasForeignKey("HomestayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Homestay", null)
+                        .WithMany("Rates")
+                        .HasForeignKey("HomestayId");
 
-                    b.HasOne("TravelWeb.Models.TouristAttraction", "TouristAttraction")
-                        .WithMany()
-                        .HasForeignKey("TouristAttractionTouristId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cuisine");
-
-                    b.Navigation("Homestay");
-
-                    b.Navigation("TouristAttraction");
+                    b.HasOne("TravelWeb.Models.TouristAttraction", null)
+                        .WithMany("Rates")
+                        .HasForeignKey("TouristAttractionTouristId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Repository", b =>
                 {
-                    b.HasOne("TravelWeb.Models.User", "User")
-                        .WithOne("Repository")
-                        .HasForeignKey("TravelWeb.Models.Repository", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.HasOne("TravelWeb.Models.User", null)
+                        .WithMany("Repositories")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Vote", b =>
                 {
-                    b.HasOne("TravelWeb.Models.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.Comment", null)
+                        .WithMany("Votes")
+                        .HasForeignKey("CommentId");
 
-                    b.HasOne("TravelWeb.Models.ForumPost", "ForumPost")
-                        .WithMany()
-                        .HasForeignKey("ForumPostPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TravelWeb.Models.ForumPost", null)
+                        .WithMany("Votes")
+                        .HasForeignKey("ForumPostId");
 
-                    b.HasOne("TravelWeb.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("ForumPost");
-
-                    b.Navigation("User");
+                    b.HasOne("TravelWeb.Models.User", null)
+                        .WithMany("Votes")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.AirlineTicket", b =>
                 {
                     b.Navigation("Bill")
                         .IsRequired();
+
+                    b.Navigation("Brands");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Brand", b =>
                 {
-                    b.Navigation("CategoryTicket")
-                        .IsRequired();
+                    b.Navigation("CategoryTickets");
+                });
+
+            modelBuilder.Entity("TravelWeb.Models.Comment", b =>
+                {
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.Cuisine", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("History")
                         .IsRequired();
+
+                    b.Navigation("Photos");
+
+                    b.Navigation("Rates");
+                });
+
+            modelBuilder.Entity("TravelWeb.Models.ForumPost", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("TravelWeb.Models.Homestay", b =>
+                {
+                    b.Navigation("Photos");
+
+                    b.Navigation("Rates");
+                });
+
+            modelBuilder.Entity("TravelWeb.Models.Repository", b =>
+                {
+                    b.Navigation("Bills");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.TouristAttraction", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("History")
                         .IsRequired();
+
+                    b.Navigation("Photos");
+
+                    b.Navigation("Rates");
                 });
 
             modelBuilder.Entity("TravelWeb.Models.User", b =>
@@ -946,8 +901,15 @@ namespace TravelWeb.Migrations
                     b.Navigation("Account")
                         .IsRequired();
 
-                    b.Navigation("Repository")
-                        .IsRequired();
+                    b.Navigation("AirlineTickets");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("ForumPosts");
+
+                    b.Navigation("Repositories");
+
+                    b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
         }

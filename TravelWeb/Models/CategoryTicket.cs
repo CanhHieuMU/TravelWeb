@@ -9,7 +9,5 @@ namespace TravelWeb.Models
         [Required]
         public string CateTicketName { get; set;}
         public string Price { get; set; }
-        public virtual Brand Brand { get; set; }  
-        public int BrandId { get; set; }
     }
 }

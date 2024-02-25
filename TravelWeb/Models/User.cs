@@ -12,6 +12,10 @@ namespace TravelWeb.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public virtual Account Account { get; set; }
-        public virtual Repository Repository { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<AirlineTicket> AirlineTickets { get; set; }
+        public ICollection<ForumPost> ForumPosts { get; set; }
+        public ICollection<Repository> Repositories { get; set; }
+        public ICollection<Vote> Votes { get; set; }
     }
 }

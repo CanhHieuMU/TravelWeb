@@ -10,6 +10,6 @@ namespace TravelWeb.Models
         public string TicketName { get; set; }
         public DateTime Date { get; set; }
         public virtual Bill Bill { get; set; }
-        public User User { get; set; }
+        public ICollection<Brand> Brands { get; set; }
     }
 }

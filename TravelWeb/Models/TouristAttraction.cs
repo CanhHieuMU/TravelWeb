@@ -13,5 +13,8 @@ namespace TravelWeb.Models
         public string CategoryTourist { get; set; }
         public virtual History History { get; set; }
         public  virtual ICollection<Repository> Repositories { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+        public ICollection<Rate> Rates { get; set; }
     }
 }

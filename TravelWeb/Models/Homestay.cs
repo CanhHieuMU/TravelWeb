@@ -12,6 +12,8 @@ namespace TravelWeb.Models
         public string Extention { get; set; }
         public string People { get; set; }
         public string Phone { get; set; }
-        public virtual List<Repository> Repositories { get;}
+        public virtual ICollection<Repository> Repositories { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+        public ICollection<Rate> Rates { get; set; }
     }
 }

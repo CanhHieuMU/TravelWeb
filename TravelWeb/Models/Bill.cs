@@ -11,6 +11,5 @@ namespace TravelWeb.Models
         public string BillName { get; set;}
         public virtual AirlineTicket AirlineTicket { get; set; }
         public int TicketId { get; set; }
-        public Repository Repository { get; set; }
     }
 }
