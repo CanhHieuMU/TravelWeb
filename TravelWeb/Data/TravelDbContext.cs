@@ -27,6 +27,7 @@ namespace TravelWeb.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Repository> Repositories { get; set; }
         public DbSet<TouristAttraction> TouristAttractions { get; set; }
+        public DbSet<CategoryHomestay> CategoryHomestays { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

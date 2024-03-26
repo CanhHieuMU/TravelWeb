@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelWeb.Data;
 
@@ -11,9 +12,10 @@ using TravelWeb.Data;
 namespace TravelWeb.Migrations
 {
     [DbContext(typeof(TravelDbContext))]
-    partial class TravelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240227020237_AddCateHomestay_27_2_2024")]
+    partial class AddCateHomestay_27_2_2024
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,9 +256,8 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryHomeId"), 1L, 1);
 
-                    b.Property<string>("NameCate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NameCate")
+                        .HasColumnType("int");
 
                     b.HasKey("CategoryHomeId");
 
@@ -359,6 +360,7 @@ namespace TravelWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CuisineId");
@@ -432,6 +434,10 @@ namespace TravelWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HomestayId"), 1L, 1);
 
+                    b.Property<string>("CategoryHome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Extention")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -445,6 +451,7 @@ namespace TravelWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("HomestayId");
@@ -502,7 +509,7 @@ namespace TravelWeb.Migrations
                     b.Property<int?>("HomestayId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsRateed")
+                    b.Property<bool>("IsRateed")
                         .HasColumnType("bit");
 
                     b.Property<int>("RateStar")
@@ -553,9 +560,11 @@ namespace TravelWeb.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TouristId"), 1L, 1);
 
                     b.Property<string>("CategoryTourist")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PriceTicketTourist")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TouristName")

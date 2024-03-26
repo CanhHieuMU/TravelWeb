@@ -8,7 +8,7 @@ namespace TravelWeb.Models
         public int CuisineId { get; set; }
         [Required]
         public string CuisineName { get; set;}
-        public string Price { get; set; }
+        public string? Price { get; set; }
         public string? Phone { get; set; }
         public virtual History History { get; set; }
         public virtual ICollection<Repository> Repositories { get; set; }

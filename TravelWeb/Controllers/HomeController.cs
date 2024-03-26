@@ -1,21 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TravelWeb.Data;
 using TravelWeb.Models;
 
 namespace TravelWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        TravelDbContext travelDbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(Data.TravelDbContext _travelDbContext)
         {
-            _logger = logger;
+            this.travelDbContext = _travelDbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            /*Codeluoncholong'
+             * var i = travelDbContext.Cuisines.Where(c => c.Rates < 8)
+              */ 
+            var t = travelDbContext.Cuisines
+                .Where(c => c.CuisineId == 1)
+                .Select(C => C.CuisineName);
+               
+            return Json(t);
         }
 
         public IActionResult Privacy()

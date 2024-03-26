@@ -8,6 +8,6 @@ namespace TravelWeb.Models
         public int RateId { get; set; }
         [Required]
         public int RateStar { get; set; }
-        public bool IsRateed { get; set; }
+        public bool? IsRateed { get; set; }
     }
 }

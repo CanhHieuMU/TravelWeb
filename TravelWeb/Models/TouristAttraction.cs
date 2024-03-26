@@ -9,8 +9,8 @@ namespace TravelWeb.Models
         public int TouristId { get; set; }
         [Required]
         public string TouristName { get; set; }
-        public string PriceTicketTourist { get; set; }
-        public string CategoryTourist { get; set; }
+        public string? PriceTicketTourist { get; set; }
+        public string? CategoryTourist { get; set; }
         public virtual History History { get; set; }
         public  virtual ICollection<Repository> Repositories { get; set; }
         public ICollection<Comment> Comments { get; set; }
